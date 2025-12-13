@@ -57,6 +57,7 @@ class AsyncLimiter:
 
     max_rate: float  #: The configured `max_rate` value for this limiter.
     time_period: float  #: The configured `time_period` value for this limiter.
+    _event_loop: asyncio.AbstractEventLoop
 
     def __init__(self, max_rate: float, time_period: float = 60) -> None:
         self.max_rate = max_rate
@@ -74,7 +75,6 @@ class AsyncLimiter:
 
     @property
     def _loop(self) -> asyncio.AbstractEventLoop:
-        self._event_loop: asyncio.AbstractEventLoop
         try:
             loop = self._event_loop
             if loop.is_closed():
