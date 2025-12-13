@@ -8,7 +8,6 @@ import asyncio
 import os
 import sys
 import warnings
-from contextlib import AbstractAsyncContextManager
 from functools import partial
 from heapq import heappop, heappush
 from itertools import count
@@ -36,7 +35,7 @@ else:  # pragma: no cover
     )
 
 
-class AsyncLimiter(AbstractAsyncContextManager[None]):
+class AsyncLimiter:
     """A leaky bucket rate limiter.
 
     This is an :ref:`asynchronous context manager <async-context-managers>`;
@@ -55,18 +54,6 @@ class AsyncLimiter(AbstractAsyncContextManager[None]):
        within this time period in a burst.
 
     """
-
-    __slots__ = (
-        "_event_loop",
-        "_last_check",
-        "_level",
-        "_next_count",
-        "_rate_per_sec",
-        "_waiters",
-        "_waker_handle",
-        "max_rate",
-        "time_period",
-    )
 
     max_rate: float  #: The configured `max_rate` value for this limiter.
     time_period: float  #: The configured `time_period` value for this limiter.
