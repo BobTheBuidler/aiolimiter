@@ -10,8 +10,8 @@ import sys
 import warnings
 from functools import partial
 from heapq import heappop, heappush
-from itertools import count
 from types import TracebackType
+from typing import final
 
 LIMITER_REUSED_ACROSS_LOOPS_WARNING = (
     "This AsyncLimiter instance is being re-used across loops. Please create "
@@ -41,6 +41,21 @@ else:  # pragma: no cover
     )
 
 
+@final
+class count:
+    # This is just a clone of itertools.count so we can use it without using interpeted Python
+    def __init__(self) -> None:
+        self.value: int = 0
+    def __repr__(self) -> str:
+        return f"count({self.value})"
+    def __iter__(self) -> "count":
+        return self
+    def __next__(self) -> int:
+        self.value = value = self.value + 1
+        yield value
+
+
+@final
 class AsyncLimiter:
     """A leaky bucket rate limiter.
 
@@ -77,7 +92,7 @@ class AsyncLimiter:
         # min-heap with (amount requested, order, future) for waiting tasks
         self._waiters: list[tuple[float, int, asyncio.Future[None]]] = []
         # counter used to order waiting tasks
-        self._next_count = partial(next, count())
+        self._next_count = count()
 
     @property
     def _loop(self) -> asyncio.AbstractEventLoop:
@@ -140,7 +155,7 @@ class AsyncLimiter:
             # are checked *after* completing capacity acquisition in this task.
             fut = loop.create_future()
             fut.add_done_callback(partial(loop.call_soon, self._wake_next))
-            heappush(self._waiters, (amount, self._next_count(), fut))
+            heappush(self._waiters, (amount, next(self._next_count), fut))
             self._wake_next()
             await fut
 
