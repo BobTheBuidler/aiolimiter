@@ -22,7 +22,7 @@ if sys.version_info >= (3, 12):  # pragma: no cover
     from pathlib import Path
     from typing import cast
 
-    skip_file_prefix = Path(cast(str, os.path.dirname(cast(str, sys.modules["dank_mids"].__file__)))) / "_vendor" / "aiolimiter" / "src" / "aiolimiter"
+    skip_file_prefix = Path(os.path.dirname(cast(str, sys.modules["dank_mids"].__file__))) / "_vendor" / "aiolimiter" / "src" / "aiolimiter"
     del Path, cast
     
     _warn_reuse = partial(
