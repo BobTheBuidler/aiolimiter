@@ -20,9 +20,10 @@ LIMITER_REUSED_ACROSS_LOOPS_WARNING = (
 
 if sys.version_info >= (3, 12):  # pragma: no cover
     from pathlib import Path
+    from typing import cast
 
-    skip_file_prefix = Path(os.path.dirname(sys.modules["dank_mids"].__file__)) / "_vendor" / "aiolimiter" / "src" / "aiolimiter"
-    del Path
+    skip_file_prefix = Path(cast(str, os.path.dirname(sys.modules["dank_mids"].__file__))) / "_vendor" / "aiolimiter" / "src" / "aiolimiter"
+    del Path, cast
     
     _warn_reuse = partial(
         warnings.warn,
