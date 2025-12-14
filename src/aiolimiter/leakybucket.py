@@ -19,11 +19,16 @@ LIMITER_REUSED_ACROSS_LOOPS_WARNING = (
 )
 
 if sys.version_info >= (3, 12):  # pragma: no cover
+    from pathlib import Path
+
+    skip_file_prefix = Path(os.path.dirname(sys.modules["dank_mids"].__file__)) / "_vendor" / "aiolimiter" / "src" / "aiolimiter"
+    del Path
+    
     _warn_reuse = partial(
         warnings.warn,
         message=LIMITER_REUSED_ACROSS_LOOPS_WARNING,
         category=RuntimeWarning,
-        skip_file_prefixes=(os.path.dirname(__file__),),
+        skip_file_prefixes=(skip_file_prefix,),
     )
 else:  # pragma: no cover
     # no support for dynamic stack levels, disable stack location
