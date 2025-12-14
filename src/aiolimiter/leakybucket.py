@@ -52,8 +52,8 @@ class count:
         return self
     def __next__(self) -> int:
         value = self.value
-        yield value
         self.value = value + 1
+        return value
 
 
 @final
