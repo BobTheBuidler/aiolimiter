@@ -51,8 +51,9 @@ class count:
     def __iter__(self) -> "count":
         return self
     def __next__(self) -> int:
-        self.value = value = self.value + 1
+        value = self.value
         yield value
+        self.value = value + 1
 
 
 @final
