@@ -10,6 +10,7 @@ import sys
 import warnings
 from functools import partial
 from heapq import heappop, heappush
+from itertools import count
 from types import TracebackType
 from typing import final
 
@@ -41,6 +42,7 @@ else:  # pragma: no cover
     )
 
 
+""" TODO: uncomment this when [<insert issue link here>] is fixed
 @final
 class count:
     # This is just a clone of itertools.count so we can use it without using interpeted Python
@@ -54,6 +56,7 @@ class count:
         value = self.value
         self.value = value + 1
         return value
+"""
 
 
 @final
