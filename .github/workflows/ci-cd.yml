@@ -2,9 +2,21 @@ name: Python checks
 
 on:
   push:
+    paths:
+      - '**/*.py'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - 'src/**'
+      - '.github/workflows/ci-cd.yml'
     branches: [ "main" ]
     tags: [v*]
   pull_request:
+    paths:
+      - '**/*.py'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - 'src/**'
+      - '.github/workflows/ci-cd.yml'
   merge_group:
 
 env:
