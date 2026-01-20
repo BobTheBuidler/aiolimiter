@@ -2,9 +2,35 @@ name: Python checks
 
 on:
   push:
+    paths:
+      - '**/*.py'
+      - '**/*.pyi'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - 'pytest.ini'
+      - 'setup.cfg'
+      - 'setup.py'
+      - 'tox.ini'
+      - 'requirements*.txt'
+      - 'poetry.lock'
+      - 'src/**'
+      - '.github/workflows/ci-cd.yml'
     branches: [ "main" ]
     tags: [v*]
   pull_request:
+    paths:
+      - '**/*.py'
+      - '**/*.pyi'
+      - 'tests/**'
+      - 'pyproject.toml'
+      - 'pytest.ini'
+      - 'setup.cfg'
+      - 'setup.py'
+      - 'tox.ini'
+      - 'requirements*.txt'
+      - 'poetry.lock'
+      - 'src/**'
+      - '.github/workflows/ci-cd.yml'
   merge_group:
 
 env:
