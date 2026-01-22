@@ -14,7 +14,23 @@ name: "CodeQL Advanced"
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+      - "setup.cfg"
+      - "setup.py"
+      - "requirements*.txt"
+      - "tox.ini"
+      - ".github/workflows/codeql.yml"
   pull_request:
+    paths:
+      - "**/*.py"
+      - "pyproject.toml"
+      - "setup.cfg"
+      - "setup.py"
+      - "requirements*.txt"
+      - "tox.ini"
+      - ".github/workflows/codeql.yml"
   merge_group:
   schedule:
     - cron: '25 22 * * 4'
